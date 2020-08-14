@@ -35,7 +35,7 @@ def domain_builder(search, section):
 #    transmission = ''
     
 
-    with open("../cities_compile.csv") as csv_file:
+    with open("cities_compile.csv") as csv_file:
         cities = csv.reader(csv_file)
 
         for city in cities:

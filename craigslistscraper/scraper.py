@@ -4,7 +4,9 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import json
-import domain
+#import craigslistscraper.domain as domain
+
+from craigslistscraper import domain
 
  
 class CraigslistSearches:

@@ -1,12 +1,15 @@
 # todo: work on documenting and variable names
 
+#import craigslistscraper.domain as domain
+#import craigslistscraper.scraper as scraper
+
+from craigslistscraper import domain, scraper
+
 import multiprocessing
-import os
-import domain
-import scraper
-import json
-from time import strftime
 import concurrent.futures
+import os
+from time import strftime
+import json
 
 class JsonProcessor:
     """
@@ -57,7 +60,7 @@ class JsonProcessor:
         current_date = strftime('%d-%b-%Y')
 
 
-        path = '../data/{}'.format(current_date)
+        path = 'data/{}'.format(current_date)
 
         try:
             os.mkdir(path)
@@ -73,7 +76,7 @@ class JsonProcessor:
 
                 self.search_dictionaries[self.search].update(city_dictionary)
 
-                with open('../data/{}/{}_{}.json'.format(current_date, self.search, current_time), 'w') as f:
+                with open('data/{}/{}_{}.json'.format(current_date, self.search, current_time), 'w') as f:
                     json.dump(self.search_dictionaries, f, indent=2)
 
 

@@ -1,9 +1,10 @@
 # add documentation and refactor
 
-import domain
-import scraper
-import json_build
+#import craigslistscraper.domain as domain
+#import craigslistscraper.scraper as scraper 
+#import craigslistscraper.json_build as json_build
 
+from craigslistscraper import domain, scraper, json_build
 
 
 class Searches:

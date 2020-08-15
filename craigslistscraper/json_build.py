@@ -58,7 +58,12 @@ class JsonProcessor:
         # Used for naming json file
         current_time = strftime('%d:%b:%Y-%H:%M:%S')
         current_date = strftime('%d-%b-%Y')
-
+        
+        try:
+            os.mkdir('data')
+        
+        except FileExistsError:
+            pass
 
         path = 'data/{}'.format(current_date)
 

@@ -1,0 +1,5 @@
+include *.md
+
+include LICENSE.txt
+
+include city_data/*.csv

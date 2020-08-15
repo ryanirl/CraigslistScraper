@@ -1,5 +1,3 @@
-#import craigslistscraper.searches as searches # new
-#import craigslistscraper.Search
 from craigslistscraper import Searches
 import time
 

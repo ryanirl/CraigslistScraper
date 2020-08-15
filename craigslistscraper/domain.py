@@ -1,4 +1,6 @@
 import csv
+import pkg_resources
+
 
 def domain_builder(search, section): 
     """
@@ -33,9 +35,10 @@ def domain_builder(search, section):
 #    title_status = ''
 #    car_type = ''
 #    transmission = ''
-    
 
-    with open("cities_compile.csv") as csv_file:
+    DATA_PATH = pkg_resources.resource_filename('craigslistscraper', 'city_data/cities_compile.csv')
+
+    with open(DATA_PATH) as csv_file:
         cities = csv.reader(csv_file)
 
         for city in cities:

@@ -1,5 +1,5 @@
 include *.md
 
-include LICENSE.txt
+include LICENSE
 
-include city_data/*.csv
+include craigslistscraper/city_data/*.csv

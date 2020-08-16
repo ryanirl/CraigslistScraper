@@ -8,11 +8,12 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
     name='craigslistscraper',  
-    version='2.0.0',  
+    version='0.0.1',  
     description='Webscraper for Craigslist',  
     long_description=long_description,  
     long_description_content_type='text/markdown', 
     url='https://github.com/ryanirl/CraigslistScraper',  
+    download_url='https://github.com/ryanirl/CraigslistScraper/archive/v0.0.1-pre-alpha.tar.gz',
     author='Ryan Peters',
     author_email='ryanirl@icloud.com',  
 

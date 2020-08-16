@@ -7,12 +7,12 @@ Craigslist Scraper is a web scraper for craigslist, Users define their searches 
 ```
 data
     ├── 14-aug-2020
-    │   ├── bmw_14:Aug:2020-11:04:01.json
-    │   ├── audi_14:Aug:2020-18:03:21.json
-    │   └── iphone_14:Aug:2020-11:04:07.json
+    │   ├── bmw_14:Aug:2020-11:04:01.json
+    │   ├── audi_14:Aug:2020-18:03:21.json
+    │   └── iphone_14:Aug:2020-11:04:07.json
     ├── 15-aug-2020
     └── 16-aug-2020
-        └── iphone_15:Aug:2020-12:06:02.json
+        └── iphone_15:Aug:2020-12:06:02.json
        
 ```
 
@@ -65,3 +65,6 @@ For craigslistscraper to function properly you **NEED** to run it inside of ```i
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
+
+
+

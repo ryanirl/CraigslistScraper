@@ -49,14 +49,21 @@ To install the package just run ```pip install craigslistscraper``` in terminal,
 
 <!-- USAGE -->
 ## Usage
+Example of usage: 
 ```python
 from craigslistscraper import Searches
 
 if __name__ == '__main__':
-  foo = Searches("your search", "section")
+  filters = ['&postedToday=1']
+
+  foo = Searches("your search", "section", filters)
   
   foo.compile_search()
 ```
+**Note:** Filters does not have to be defined or passed in as an argument, and will by default be assigned '&postedToday=1'
+
+For more filters, check out the 'FILTERS.md' file.
+
 For craigslistscraper to function properly you **NEED** to run it inside of ```if __name__ == '__main__'``` because of a multiprocessing error that occurs if you don't, this will be fixed in a future update.
 
 

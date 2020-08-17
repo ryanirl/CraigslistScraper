@@ -12,10 +12,10 @@ class Searches:
     Class purpose is for reusability of searches.
     """
 
-    def __init__(self, search, section='sss'):
+    def __init__(self, search, section='sss', filters=[]):
         self.search = search
         self.section = section
-        self.domains, self.cities = domain.domain_builder(search, section)
+        self.domains, self.cities = domain.domain_builder(search, section, filters)
     
     def compile_search(self):
         """

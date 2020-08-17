@@ -1,8 +1,7 @@
 import csv
 import pkg_resources
 
-
-def domain_builder(search, section): 
+def domain_builder(search, section, filters): 
     """
     Return 0: Array of domains
     Return 1: Array of cities
@@ -25,16 +24,8 @@ def domain_builder(search, section):
     domains = []
     cities_list = []
 
-    domain_protocol = 'https://'
-    domain_name = '.craigslist.org/search/'
     domain_section = section
     domain_search = '?query={}'.format(search)
-    domain_parameters = '&sort=rel&postedToday=1'
-    
-#    posted_today = ''
-#    title_status = ''
-#    car_type = ''
-#    transmission = ''
 
     DATA_PATH = pkg_resources.resource_filename('craigslistscraper', 'city_data/cities_compile.csv')
 
@@ -42,12 +33,12 @@ def domain_builder(search, section):
         cities = csv.reader(csv_file)
 
         for city in cities:
-            domains.append(domain_protocol + str(city[0]) + domain_name + domain_section + 
-                           domain_search + domain_parameters) 
+            domains.append('https://' + str(city[0]) + '.craigslist.org/search/' + domain_section + domain_search + ''.join(filters))
 
             cities_list.append(city)
        
     return domains, cities_list
+
 
 
 

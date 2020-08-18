@@ -1,11 +1,5 @@
-# todo: work on documenting and variable names
-
-#import craigslistscraper.domain as domain
-#import craigslistscraper.scraper as scraper
-
 from craigslistscraper import domain, scraper
 
-import multiprocessing
 import concurrent.futures
 import os
 from time import strftime
@@ -48,36 +42,35 @@ class JsonProcessor:
         Defines time and date for the creation of data files.
 
         Runs json_data() on multiple processors allowing for a faster
-        scraping of each ad page. Each process passes along the city_dictionary
+        scraping of each ad page which can be time comsuming when scraping
+        large multiple cities. Each process passes along the city_dictionary
         compiled in json_data and then wraps that dictionary into the larger
-        search_dictionary and dumps the dictionary into a file for each search
-        ran in main
+        search_dictionary and dumps the dictionary into a file for each defined
+        search. See above documentation for graphical structure of JSON files.
 
         """
 
-        # Used for naming json file
+        # Used for naming JSON file
         current_time = strftime('%d:%b:%Y-%H:%M:%S')
         current_date = strftime('%d-%b-%Y')
         
-        try:
+        try: # Checks to see if 'data' file has been created yet.
             os.mkdir('data')
-        
         except FileExistsError:
             pass
 
         path = 'data/{}'.format(current_date)
 
-        try:
+        try: # Checks if the file for 'current_date' has been created or not.
             os.mkdir(path)
-
         except FileExistsError:
             pass
 
-        with concurrent.futures.ProcessPoolExecutor() as executor:
+        with concurrent.futures.ProcessPoolExecutor() as executor: # Multiprocessor 
             city_dictionaries = executor.map(self.json_data, self.domains, self.cities)
 
             for city_dictionary in city_dictionaries:
-                print(city_dictionary)
+#                print(city_dictionary) # Used for debugging
 
                 self.search_dictionaries[self.search].update(city_dictionary)
 
@@ -87,13 +80,12 @@ class JsonProcessor:
 
     def json_data(self, domain, city):
         """
-        Defines city_dictionary and runs the scraper and compiles
-        posting_titles, prices, ad_hrefs, and posting_details then
-        passes them into name_dictionary.
+        Initiates the city dictionary then creates a CraigslistSearches
+        object and gathers posting_titles, prices, ad_hrefs, and posting_details
+        from methods within the object then passes them into name_dictionary.
 
-        name_dictionaries is hen placed inside of city_dictionary for 
-        each city in self.cities and returns city_dictionary.
-
+        name_dictionaries is then placed inside of city_dictionary for 
+        each city in self.cities and json_data() returns city_dictionary.
         """
 
         city_dictionary = {city[0]: {}}        
@@ -107,7 +99,7 @@ class JsonProcessor:
 
         for posting_title, price, url, itter in zip(posting_titles, prices, ad_hrefs, range(len(posting_titles))):
 
-            name_dictionaries = {posting_title: {'price': price, 'url': url}} # removed ''model': None' from the end
+            name_dictionaries = {posting_title: {'price': price, 'url': url}} 
 
             for item in posting_details[itter]:
                 if len(item) == 2:

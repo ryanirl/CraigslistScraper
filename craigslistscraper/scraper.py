@@ -1,25 +1,22 @@
-# todo: more documenting
+from craigslistscraper import domain
 
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import json
-#import craigslistscraper.domain as domain
-
-from craigslistscraper import domain
 
  
 class CraigslistSearches:
     """
-    Class for Craigslist searches:
-
+    Object that pulls all relevent ad information and returns them
+    in arrays to be parsed to a JSON file.
     """
 
     def __init__(self, domain_get):
         self.page = requests.get(domain_get)
         self.soup = BeautifulSoup(self.page.content, 'html.parser')
 
-    def posting_title(self):  # Returns names of craigslist items
+    def posting_title(self):  
         """
         Retuns the Posting Title of the ad in the form of a string.
         """
@@ -30,7 +27,7 @@ class CraigslistSearches:
 
         return posting_title 
 
-    def price(self):  # Returns prices of craigslist items
+    def price(self):  
         """
         Returns Price of ad in form $'price' with the dollar sign included.
         """
@@ -54,7 +51,7 @@ class CraigslistSearches:
 
         return ad_link
 
-    def posting_details(self): #fix to only return one thing possibly 
+    def posting_details(self): 
         """
         Retuns an array of all the Posting Details and Description in an array.
         """

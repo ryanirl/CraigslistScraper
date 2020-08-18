@@ -1,15 +1,9 @@
-# add documentation and refactor
-
-#import craigslistscraper.domain as domain
-#import craigslistscraper.scraper as scraper 
-#import craigslistscraper.json_build as json_build
-
 from craigslistscraper import domain, scraper, json_build
 
 
 class Searches:
     """
-    Class purpose is for reusability of searches.
+    Class purpose is for reusability of code.
     """
 
     def __init__(self, search, section='sss', filters=['postedToday=1']):
@@ -19,7 +13,7 @@ class Searches:
     
     def compile_search(self):
         """
-        Compiles JsonProcessor for search.
+        Runs JsonProcessor 
         """
         
         SEARCH = json_build.JsonProcessor(self.domains, self.cities, self.search)

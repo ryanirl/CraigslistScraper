@@ -1,6 +1,19 @@
 # Filter Options
 **Note:** More can be found on craigslist, I only list the main ones and some relating to cars
 
+### Section Options 
+**Note:** More can be found simply be going to Craigslist.
+
+```
+'sss' (all) 
+'cta' (cars all) 
+'cto' (cars owner) 
+'syp' (computer parts) 
+'sya' (computers) 
+'ela' (electronics) 
+'zip' (free stuff) 
+```
+
 ### Default Filters
 ```
 '&postedToday=1' (to minimize clutter)

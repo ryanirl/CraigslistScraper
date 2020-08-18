@@ -70,7 +70,7 @@ class JsonProcessor:
             city_dictionaries = executor.map(self.json_data, self.domains, self.cities)
 
             for city_dictionary in city_dictionaries:
-#                print(city_dictionary) # Used for debugging
+                print(city_dictionary) # Used for debugging
 
                 self.search_dictionaries[self.search].update(city_dictionary)
 
@@ -88,7 +88,7 @@ class JsonProcessor:
         each city in self.cities and json_data() returns city_dictionary.
         """
 
-        city_dictionary = {city[0]: {}}        
+        city_dictionary = {city: {}}        
 
         SEARCH = scraper.CraigslistSearches(domain)
 
@@ -107,7 +107,7 @@ class JsonProcessor:
                 else:
                     name_dictionaries[posting_title].update({'model': item[0]})
 
-            city_dictionary[city[0]].update(name_dictionaries)
+            city_dictionary[city].update(name_dictionaries)
             
 
         return city_dictionary

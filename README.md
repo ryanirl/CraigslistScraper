@@ -54,13 +54,17 @@ Example of usage:
 from craigslistscraper import Searches
 
 if __name__ == '__main__':
-  filters = ['&postedToday=1']
+  filters = ['&postedToday=1'] # Optional
 
-  foo = Searches("your search", "section", filters)
+  cities = ['city1', 'city2'] # Required
+
+  foo = Searches("your search", cities "section", filters)
   
   foo.compile_search()
 ```
-**Note:** Filters does not have to be defined or passed in as an argument, and will by default be assigned '&postedToday=1'
+**Note #1:** Filters does not have to be defined or passed in as an argument, and will by default be assigned '&postedToday=1'
+
+**Note #2:** For a list of cities view the 'craigslistscraper/city_data/craigslist_cities_list.csv' file
 
 For more filters, check out the 'FILTERS.md' file.
 

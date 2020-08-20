@@ -15,7 +15,7 @@ def main():
     filters = ['&postedToday=1']
 
     # some examples of what can be done
-    bmw_search = Searches('bmw', cities, 'cto', filters)
+    bmw_search = Searches('bmw', cities, 'cto', filters, car_data=True)
 #    audi_search = Searches('audi', 'cto', filters)
 #    iphone_search = Searches('iphone', 'ela', filters)
 

@@ -31,11 +31,12 @@ class JsonProcessor:
     and date seperated by a '-'
     """
 
-    def __init__(self, domains, cities, search):
+    def __init__(self, domains, cities, search, car_data):
         self.domains = domains
         self.cities = cities
         self.search = search
         self.search_dictionaries = {self.search: {}}
+        self.car_data = car_data
 
     def json_multiprocessor(self):
         """
@@ -97,23 +98,37 @@ class JsonProcessor:
         ad_hrefs = SEARCH.ad_href()
         posting_details, descriptions = SEARCH.posting_details()
 
-        for posting_title, price, url, itter in zip(posting_titles, prices, ad_hrefs, range(len(posting_titles))):
+        if self.car_data == False:
+            for posting_title, price, url, itter in zip(posting_titles, prices, ad_hrefs, range(len(posting_titles))):
 
-            name_dictionaries = {posting_title: {'price': price, 'url': url}} 
+                name_dictionaries = {posting_title: {'price': price, 'url': url}} 
 
-            for item in posting_details[itter]:
-                if len(item) == 2:
-                    name_dictionaries[posting_title].update({item[0]: item[1]})
-                else:
-                    name_dictionaries[posting_title].update({'model': item[0]})
+                for item in posting_details[itter]:
+                    if len(item) == 2:
+                        name_dictionaries[posting_title].update({item[0]: item[1]})
+                    else:
+                        name_dictionaries[posting_title].update({'model': item[0]})
 
-            city_dictionary[city].update(name_dictionaries)
+                city_dictionary[city].update(name_dictionaries)
+
+        elif self.car_data == True:
+            for names, price, url, itter in zip(posting_titles, prices, ad_hrefs, range(len(posting_titles))):
+
+                name_dictionaries = {names: {'price': price, 'url': url, 'model': None,
+                                             'odometer': None, 'condition': None, 'cylinders': None, 'drive': None,
+                                             'fuel': None, 'paint color': None, 'size': None, 'title status': None,
+                                             'transmission': None, 'type': None, 'VIN': None}}
+
+                for item in posting_details[itter]:
+                    if len(item) == 2:
+                        name_dictionaries[names].update({item[0]: item[1]})
+                    else:
+                        name_dictionaries[names].update({'model': item[0]})
+
+                city_dictionary[city].update(name_dictionaries)
             
 
         return city_dictionary
-
-
-
 
 
 

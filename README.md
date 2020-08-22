@@ -19,7 +19,7 @@ data
 ##### Where each JSON file might contain data that looks like:
 
 <p>
-  <img src="img/json_file_example.png" alt="Json Example" width="95%">
+  <img src="img/json_file_example.png" alt="JSON Example" width="95%">
 </p>
 Only tested on macOS with python3.
 
@@ -71,7 +71,26 @@ For more filters, check out the 'FILTERS.md' file.
 
 For craigslistscraper to function properly you **NEED** to run it inside of ```if __name__ == '__main__'``` because of a multiprocessing error that occurs if you don't, this will be fixed in a future update.
 
-If your using this scraper to look at car data I recommend putting ```car_data=True``` at the end of foo in the example above as it'll give more complete json data which is easier to work with when converting to csv files.
+If your using this scraper to look at car data I recommend putting ```car_data=True``` at the end of foo in the example above, as it'll give more complete json data which is easier to work with when converting to csv files.
+
+## Analyzing
+
+Data can easily be converted to **CSV**
+
+<p>
+  <img src="img/csv_screenshot.png" alt="CSV Example" width="95%">
+</p>
+
+This data can then be analyzed, some examples include:
+
+<p>
+  <img src="img/price_year_screenshot.png" alt="CSV Example" width="95%">
+</p>
+
+<p>
+  <img src="img/price_odometer_screenshot.png" alt="CSV Example" width="95%">
+</p>
+
 
 <!-- LICENSE -->
 ## License

@@ -92,43 +92,29 @@ class JsonProcessor:
         city_dictionary = {city: {}}        
 
         SEARCH = scraper.CraigslistSearches(domain)
-
         posting_titles = SEARCH.posting_title()
         prices = SEARCH.price()
         ad_hrefs = SEARCH.ad_href()
         posting_details, descriptions = SEARCH.posting_details()
 
-        if self.car_data == False:
-            for posting_title, price, url, itter in zip(posting_titles, prices, ad_hrefs, range(len(posting_titles))):
-
+        for posting_title, price, url, itter in zip(posting_titles, prices, ad_hrefs, range(len(posting_titles))):
+            if self.car_data == False:
                 name_dictionaries = {posting_title: {'price': price, 'url': url}} 
 
-                for item in posting_details[itter]:
-                    if len(item) == 2:
-                        name_dictionaries[posting_title].update({item[0]: item[1]})
-                    else:
-                        name_dictionaries[posting_title].update({'model': item[0]})
-                        name_dictionaries[posting_title].update({'year': item[0][:4]})
-
-                city_dictionary[city].update(name_dictionaries)
-
-        elif self.car_data == True:
-            for names, price, url, itter in zip(posting_titles, prices, ad_hrefs, range(len(posting_titles))):
-
-                name_dictionaries = {names: {'price': price, 'url': url, 'model': None, 'year': None,
+            elif self.car_data == True:
+                name_dictionaries = {posting_title: {'price': price, 'url': url, 'model': None, 'year': None,
                                              'odometer': None, 'condition': None, 'cylinders': None, 'drive': None,
                                              'fuel': None, 'paint color': None, 'size': None, 'title status': None,
                                              'transmission': None, 'type': None, 'VIN': None}}
 
-                for item in posting_details[itter]:
-                    if len(item) == 2:
-                        name_dictionaries[names].update({item[0]: item[1]})
-                    else:
-                        name_dictionaries[names].update({'model': item[0]})
-                        name_dictionaries[names].update({'year': item[0][:4]})
+            for item in posting_details[itter]:
+                if len(item) == 2:
+                    name_dictionaries[posting_title].update({item[0]: item[1]})
+                else:
+                    name_dictionaries[posting_title].update({'model': item[0]})
+                    name_dictionaries[posting_title].update({'year': item[0][:4]})
 
-                city_dictionary[city].update(name_dictionaries)
-            
+            city_dictionary[city].update(name_dictionaries)
 
         return city_dictionary
 

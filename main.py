@@ -12,7 +12,7 @@ def main():
     """
     
     cities = ['minneapolis', 'austin']
-    filters = ['&postedToday=0']
+    filters = ['&postedToday=1']
 
     # some examples of what can be done
     bmw_search = Searches('bmw', cities, 'cto', filters, car_data=True)

@@ -32,6 +32,7 @@ Table of Contents
 * [Table of Contents](#table-of-contents)
 * [Installation](#installation)
 * [Usage](#usage)
+* [Analyzing](#analyzing)
 * [License](#license)
 
 
@@ -53,7 +54,7 @@ Example of usage:
 ```python
 from craigslistscraper import Searches
 
-if __name__ == '__main__':
+if __name__ == '__main__': # Required to run inside of "if name == main"
   filters = ['&postedToday=1'] # Optional
 
   cities = ['city1', 'city2'] # Required
@@ -65,9 +66,9 @@ if __name__ == '__main__':
 ```
 **Note #1:** Filters does not have to be defined or passed in as an argument, and will by default be assigned '&postedToday=1'
 
-**Note #2:** For a list of cities view the 'craigslistscraper/city_data/craigslist_cities_list.csv' file
+**Note #2:** For a list of cities view the ```craigslistscraper/city_data/craigslist_cities_list.csv``` file
 
-For more filters, check out the 'FILTERS.md' file.
+**Note #3:** For more filters, check out the ```FILTERS.md``` file.
 
 For craigslistscraper to function properly you **NEED** to run it inside of ```if __name__ == '__main__'``` because of a multiprocessing error that occurs if you don't, this will be fixed in a future update.
 

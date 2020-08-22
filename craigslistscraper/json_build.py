@@ -99,10 +99,10 @@ class JsonProcessor:
 
         for posting_title, price, url, itter in zip(posting_titles, prices, ad_hrefs, range(len(posting_titles))):
             if self.car_data == False:
-                name_dictionaries = {posting_title: {'price': price, 'url': url}} 
+                name_dictionaries = {posting_title: {'price': price[1:].replace(',', ''), 'url': url}} 
 
             elif self.car_data == True:
-                name_dictionaries = {posting_title: {'price': price, 'url': url, 'model': None, 'year': None,
+                name_dictionaries = {posting_title: {'price': price[1:].replace(',', ''), 'url': url, 'model': None, 'year': None,
                                              'odometer': None, 'condition': None, 'cylinders': None, 'drive': None,
                                              'fuel': None, 'paint color': None, 'size': None, 'title status': None,
                                              'transmission': None, 'type': None, 'VIN': None}}

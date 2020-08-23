@@ -29,7 +29,6 @@ Only tested on macOS with python3.
 Table of Contents
 =================
 
-* [Table of Contents](#table-of-contents)
 * [Installation](#installation)
 * [Usage](#usage)
 * [Analyzing](#analyzing)
@@ -42,7 +41,7 @@ Table of Contents
 
 #### For macOS:
 
-To install the package just run ```pip install craigslistscraper``` in terminal, I recommend the use of Python's virtual enviroments when installing any package whether it be *craigslist scraper* or any other package. For Craigslist Scraper to run properly it needs Beautifulsoup4, Requests, and Pandas. In later updates I plan to have Numpy be included too.
+To install the package just run ```pip install craigslistscraper``` in terminal, I recommend the use of Python's virtual enviroments when installing any package whether it be CraigslistScraper or any other package. For Craigslist Scraper to run properly it needs Beautifulsoup4, Requests, and Pandas. In later updates I plan to have Numpy be included too.
 
 #### Not tested on Windows or Linux
 

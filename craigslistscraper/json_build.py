@@ -7,9 +7,9 @@ import json
 
 class JsonProcessor:
     """
-    JsonProcessor takes in 3 arguments, the domains that are being 
-    searche along with the cities, and a string of whats being searched.
-    
+    JsonProcessor takes in 3 arguments, an array of domains, an array of cities,
+    the string of whats being searched, and whether or not you want car data.
+
     The idea is to build a json file with the following structure:
     
     {search_dictionary: {

@@ -11,19 +11,17 @@ def main():
     default section is 'sss' which is all of craigslist.
     """
     
-    cities = ['minneapolis', 'austin']
+    cities = ['minneapolis']
     filters = ['&postedToday=1']
 
     # some examples of what can be done
-    bmw_search = Searches('bmw', cities, 'cto', filters, car_data=True)
+    bmw_search = Searches('', cities, 'cto', filters, car_data=True)
 #    audi_search = Searches('audi', 'cto', filters)
 #    iphone_search = Searches('iphone', 'ela', filters)
 
     bmw_search.compile_search()
 #    audi_search.compile_search()
 #    iphone_search.compile_search()
-
-
 
 if __name__ == '__main__':
     main()

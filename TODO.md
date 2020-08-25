@@ -1,4 +1,3 @@
 # TODO
 
-* Add year as an option
-
+* SQLite3 for Database

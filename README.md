@@ -41,7 +41,7 @@ Table of Contents
 
 #### For macOS:
 
-To install the package just run ```pip install craigslistscraper``` in terminal, I recommend the use of Python's virtual enviroments when installing any package whether it be CraigslistScraper or any other package. For Craigslist Scraper to run properly it needs Beautifulsoup4, Requests, and Pandas. In later updates I plan to have Numpy be included too.
+To install the package just run ```pip install craigslistscraper``` in terminal, I recommend the use of Python's virtual enviroments when installing CraigslistScraper to avoid clutter. For Craigslist Scraper to run properly it needs Beautifulsoup4, Requests, and Pandas. In later updates I plan to have Numpy be included too.
 
 #### Not tested on Windows or Linux
 
@@ -54,12 +54,13 @@ Example of usage:
 from craigslistscraper import Searches
 
 if __name__ == '__main__': # Required to run inside of "if name == main"
-  filters = ['&postedToday=1'] # Optional
 
-  cities = ['city1', 'city2'] # Required
+  filters = ['&postedToday=1'] # Optional | Define your filters here
+
+  cities = ['city1', 'city2'] # Required | Define the cities you want to search
 
   # car_data=False by default and doesn't need to be defined explicitly.
-  foo = Searches("your search", cities "section", filters, car_data=False)
+  foo = Searches("your search", cities, "section", filters, car_data=False)
   
   foo.compile_search()
 ```

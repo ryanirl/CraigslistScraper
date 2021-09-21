@@ -2,7 +2,10 @@
 
 **Note:** CraigslistScraper is for personal use and data science only.
 
-Craigslist Scraper is a web scraper for craigslist, Users define their searches then Craigslist Scraper pulls all ads and ad data from the defined search and places it neatly inside of a JSON file. The files that are created might look something like: 
+CraigslistScraper is a web scraper for craigslist. Users define what they would
+like to search for then CraigslistScraper pulls ad data from their defined
+search and places it neatly inside of a JSON file. The file structure might
+look something like this: 
 
 ```
 data
@@ -21,6 +24,8 @@ data
 <p>
   <img src="img/json_file_example.png" alt="JSON Example" width="95%">
 </p>
+
+
 Only tested on macOS with python3.
 
 
@@ -39,17 +44,29 @@ Table of Contents
 <!-- INSTALLATION -->
 ## Installation
 
-#### For macOS:
+### MacOS:
 
-To install the package just run ```pip install craigslistscraper``` in terminal, I recommend the use of Python's virtual enviroments when installing CraigslistScraper to avoid clutter. For Craigslist Scraper to run properly it needs Beautifulsoup4, Requests, and Pandas. In later updates I plan to have Numpy be included too.
+To install the package just run: 
 
-#### Not tested on Windows or Linux
+```
+pip install craigslistscraper
+
+``` 
+
+I always recommend the use of Python's virtual enviroments when installing
+libraries to avoid clutter. The dependencies CraigslistScraper requires to run
+properly are Beautifulsoup4, Requests, and Pandas. This may change as I
+continue to update this project.
+
+**Not tested on Windows or Linux**
 
 
 
 <!-- USAGE -->
 ## Usage
-Example of usage: 
+
+Example:
+
 ```python
 from craigslistscraper import Searches
 
@@ -63,16 +80,26 @@ if __name__ == '__main__': # Required to run inside of "if name == main"
   foo = Searches("your search", cities, "section", filters, car_data=False)
   
   foo.compile_search()
+
 ```
+
 **Note #1:** Filters does not have to be defined or passed in as an argument, and will by default be assigned '&postedToday=1'
 
-**Note #2:** For a list of cities view the ```craigslistscraper/city_data/craigslist_cities_list.csv``` file
 
-**Note #3:** For more filters, check out the ```FILTERS.md``` file.
+**Note #2:** For a list of cities view the `craigslistscraper/city_data/craigslist_cities_list.csv` file
 
-For craigslistscraper to function properly you **NEED** to run it inside of ```if __name__ == '__main__'``` because of a multiprocessing error that occurs if you don't, this will be fixed in a future update.
 
-If your using this scraper to look at car data I recommend putting ```car_data=True``` at the end of foo in the example above, as it'll give more complete json data which is easier to work with when converting to csv files.
+**Note #3:** For more filters, check out the `FILTERS.md` file.
+
+For craigslistscraper to function properly you **NEED** to run it inside of `if
+__name__ == '__main__'` because of a multiprocessing error that occurs if you
+don't, this will be fixed in a future update.
+
+If your using this scraper to look at car data I recommend putting `car_data =
+True` at the end of foo in the example above, as it'll give more complete json
+data which is easier to work with when converting to csv files.
+
+
 
 ## Analyzing
 

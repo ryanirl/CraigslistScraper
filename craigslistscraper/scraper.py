@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import json
+from typing import Dict
 
  
 class CraigslistSearches:
@@ -12,7 +13,8 @@ class CraigslistSearches:
     in arrays to be parsed to a JSON file.
     """
 
-    def __init__(self, domain_get):
+    def __init__(self, domain_get, headers: Dict[str, str]):
+        self.headers = headers
         self.page = requests.get(domain_get)
         self.soup = BeautifulSoup(self.page.content, 'html.parser')
 
@@ -60,7 +62,7 @@ class CraigslistSearches:
         description = []
 
         for url in self.ad_href():
-            ad_page = requests.get(url)
+            ad_page = requests.get(url, headers=self.headers)
             soup = BeautifulSoup(ad_page.content, 'html.parser')
 
             ad_info = soup.select('span')

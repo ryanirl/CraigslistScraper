@@ -31,12 +31,13 @@ class JsonProcessor:
     and date seperated by a '-'
     """
 
-    def __init__(self, domains, cities, search, car_data):
+    def __init__(self, domains, cities, search, car_data, headers):
         self.domains = domains
         self.cities = cities
         self.search = search
         self.search_dictionaries = {self.search: {}}
         self.car_data = car_data
+        self.headers = headers
 
     def json_multiprocessor(self):
         """

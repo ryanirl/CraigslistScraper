@@ -21,7 +21,7 @@ class CraigslistSearches:
     async def get_content(self, url):
         browser = await launch()
         page = await browser.newPage()
-        await page.goto(url, options={ 'waitUntil': 'networkidle2' })
+        await page.goto(url, options={ 'waitUntil': 'networkidle2', 'timeout': 10000})
         time.sleep(random.uniform(0.2, 0.8))
         return await page.content()
 

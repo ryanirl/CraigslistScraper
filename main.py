@@ -1,6 +1,96 @@
 
 from craigslistscraper import Searches
 
+tacoma_cities = ['flagstaff',
+ 'mohave',
+ 'phoenix',
+ 'prescott',
+ 'showlow',
+ 'sierravista',
+ 'tucson',
+ 'yuma',
+ 'bakersfield',
+ 'chico',
+ 'fresno',
+ 'goldcountry',
+ 'hanford',
+ 'humboldt',
+ 'imperial',
+ 'inlandempire',
+ 'losangeles',
+ 'mendocino',
+ 'merced',
+ 'modesto',
+ 'monterey',
+ 'orangecounty',
+ 'palmsprings',
+ 'redding',
+ 'sacramento',
+ 'sandiego',
+ 'sfbay',
+ 'slo',
+ 'santabarbara',
+ 'santamaria',
+ 'siskiyou',
+ 'stockton',
+ 'susanville',
+ 'ventura',
+ 'visalia',
+ 'yubasutter',
+ 'boulder',
+ 'cosprings',
+ 'denver',
+ 'eastco',
+ 'fortcollins',
+ 'rockies',
+ 'pueblo',
+ 'westslope',
+ 'boise',
+ 'eastidaho',
+ 'lewiston',
+ 'twinfalls',
+ 'billings',
+ 'bozeman',
+ 'butte',
+ 'greatfalls',
+ 'helena',
+ 'kalispell',
+ 'missoula',
+ 'montana',
+ 'bend',
+ 'corvallis',
+ 'eastoregon',
+ 'eugene',
+ 'klamath',
+ 'medford',
+ 'oregoncoast',
+ 'portland',
+ 'roseburg',
+ 'salem',
+ 'bellingham',
+ 'kpr',
+ 'moseslake',
+ 'olympic',
+ 'pullman',
+ 'seattle',
+ 'skagit',
+ 'spokane',
+ 'wenatchee',
+ 'yakima',
+ 'cariboo',
+ 'comoxvalley',
+ 'abbotsford',
+ 'kamloops',
+ 'kelowna',
+ 'kootenays',
+ 'nanaimo',
+ 'princegeorge',
+ 'skeena',
+ 'sunshine',
+ 'vancouver',
+ 'victoria',
+ 'whistler']
+
 cities = [
     'roseburg',
     'meridian',
@@ -226,18 +316,34 @@ cities = [
 base_filters = [
     '&postedToday=1',
     '&hasPic=1',
-    '&min_price=5000',
+    '&min_price=3000',
     '&max_price=18000',
     '&condition=20',
     '&condition=30',
     '&condition=40',
-    '&condition=50',
     '&auto_title_status=1',
+    '&min_auto_miles=20000',
+    '&max_auto_miles=150000'
 ]
+truck_filters = base_filters + ['&auto_drivetrain=3']
 gas_filters = base_filters + ['&auto_fuel_type=1']
 diesel_filters = base_filters + ['&auto_fuel_type=2']
+diesel_truck_filters = truck_filters + ['&auto_fuel_type=2']
 
 cars = {
+    # "Toyota+Tacoma": truck_filters,
+    # "Toyota+Tundra": truck_filters,
+    # "Toyota+Hilux": truck_filters,
+    "Ford+Ranger": truck_filters,
+    "Mazda+B4000": truck_filters,
+    "Nissan+Frontier": truck_filters,
+    "GMC+Canyon": truck_filters,
+    "Colorado+ZR2": diesel_truck_filters,
+    "Chevy Avalanche": truck_filters,
+    "Chevrolet Avalanche": truck_filters,
+}
+
+vans = {
     "Ram+Promaster": gas_filters,
     "Ford+Transit": base_filters,
     "Mercedes+Sprinter": diesel_filters,
@@ -247,7 +353,5 @@ cars = {
 
 if __name__ == '__main__':
     for search, filters in cars.items():
-        foo = Searches(search, cities, "cto", filters, car_data=True)
+        foo = Searches(search, tacoma_cities, "cto", filters, car_data=True)
         foo.compile_search()
-
-

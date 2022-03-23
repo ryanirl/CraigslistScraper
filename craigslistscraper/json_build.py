@@ -1,5 +1,6 @@
 from craigslistscraper import domain, scraper
-
+import random
+import time
 import concurrent.futures
 import os
 from time import strftime
@@ -67,11 +68,10 @@ class JsonProcessor:
         except FileExistsError:
             pass
 
-        with concurrent.futures.ProcessPoolExecutor() as executor: # Multiprocessor 
+        with concurrent.futures.ProcessPoolExecutor(max_workers=2) as executor: # Multiprocessor
             city_dictionaries = executor.map(self.json_data, self.domains, self.cities)
 
             for city_dictionary in city_dictionaries:
-                print(city_dictionary) # Used for debugging
 
                 self.search_dictionaries[self.search].update(city_dictionary)
 
@@ -91,31 +91,38 @@ class JsonProcessor:
 
         city_dictionary = {city: {}}        
 
-        SEARCH = scraper.CraigslistSearches(domain)
-        posting_titles = SEARCH.posting_title()
-        prices = SEARCH.price()
-        ad_hrefs = SEARCH.ad_href()
-        posting_details, descriptions = SEARCH.posting_details()
+        try:
+            SEARCH = scraper.CraigslistSearches(domain)
+            posting_titles = SEARCH.posting_title()
+            prices = SEARCH.price()
+            ad_hrefs = SEARCH.ad_href()
+            posting_details, descriptions = SEARCH.posting_details()
 
-        for posting_title, price, url, itter in zip(posting_titles, prices, ad_hrefs, range(len(posting_titles))):
-            if self.car_data == False:
-                name_dictionaries = {posting_title: {'price': price[1:].replace(',', ''), 'url': url}} 
+            for posting_title, price, url, itter in zip(posting_titles, prices, ad_hrefs, range(len(posting_titles))):
+                if self.car_data == False:
+                    name_dictionaries = {posting_title: {'price': price[1:].replace(',', ''), 'url': url}} 
 
-            elif self.car_data == True:
-                name_dictionaries = {posting_title: {'price': price[1:].replace(',', ''), 'url': url, 'model': None, 'year': None,
-                                             'odometer': None, 'condition': None, 'cylinders': None, 'drive': None,
-                                             'fuel': None, 'paint color': None, 'size': None, 'title status': None,
-                                             'transmission': None, 'type': None, 'VIN': None}}
+                elif self.car_data == True:
+                    name_dictionaries = {posting_title: {'price': price[1:].replace(',', ''), 'url': url, 'model': None, 'year': None,
+                                                'odometer': None, 'condition': None, 'cylinders': None, 'drive': None,
+                                                'fuel': None, 'paint color': None, 'size': None, 'title status': None,
+                                                'transmission': None, 'type': None, 'VIN': None}}
 
-            for item in posting_details[itter]:
-                if len(item) == 2:
-                    name_dictionaries[posting_title].update({item[0]: item[1]})
-                else:
-                    name_dictionaries[posting_title].update({'model': item[0]})
-                    name_dictionaries[posting_title].update({'year': item[0][:4]})
+                for item in posting_details[itter]:
+                    if len(item) == 2:
+                        name_dictionaries[posting_title].update({item[0]: item[1]})
+                    else:
+                        name_dictionaries[posting_title].update({'model': item[0]})
+                        name_dictionaries[posting_title].update({'year': item[0][:4]})
 
-            city_dictionary[city].update(name_dictionaries)
+                city_dictionary[city].update(name_dictionaries)
+        except Exception as e:
+            print("Skipping {}, due to failure.".format(city))
+            print(e)
+        finally:
+            print(city, domain)
 
+        time.sleep(random.uniform(0.5, 1.5))
         return city_dictionary
 
 

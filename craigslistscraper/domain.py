@@ -37,7 +37,6 @@ def domain_builder(search, section, filters, cities):
 
         cities_list.append(city)
        
-    print(domains, cities_list)
     return domains, cities_list
 
 

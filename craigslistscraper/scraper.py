@@ -1,9 +1,11 @@
+import time
+import random
+from IPython import embed
 from craigslistscraper import domain
-
-import requests
+import asyncio
 from bs4 import BeautifulSoup
 import pandas as pd
-import json
+from pyppeteer import launch
 
  
 class CraigslistSearches:
@@ -13,8 +15,15 @@ class CraigslistSearches:
     """
 
     def __init__(self, domain_get):
-        self.page = requests.get(domain_get)
-        self.soup = BeautifulSoup(self.page.content, 'html.parser')
+        content = asyncio.get_event_loop().run_until_complete(self.get_content(domain_get))
+        self.soup = BeautifulSoup(content, 'html.parser')
+
+    async def get_content(self, url):
+        browser = await launch()
+        page = await browser.newPage()
+        await page.goto(url, options={ 'waitUntil': 'networkidle2', 'timeout': 10000})
+        time.sleep(random.uniform(0.2, 0.8))
+        return await page.content()
 
     def posting_title(self):  
         """
@@ -25,7 +34,7 @@ class CraigslistSearches:
 
         posting_title = [item.get_text() for item in posting_title_raw]
 
-        return posting_title 
+        return posting_title
 
     def price(self):  
         """
@@ -44,7 +53,6 @@ class CraigslistSearches:
         """
 
         raw = self.soup.find_all(class_='result-row')
-
         ad_link_raw = [item.find('a') for item in raw]
 
         ad_link = [items.get('href') for items in ad_link_raw]
@@ -60,8 +68,8 @@ class CraigslistSearches:
         description = []
 
         for url in self.ad_href():
-            ad_page = requests.get(url)
-            soup = BeautifulSoup(ad_page.content, 'html.parser')
+            content = asyncio.get_event_loop().run_until_complete(self.get_content(url))
+            soup = BeautifulSoup(content, 'html.parser')
 
             ad_info = soup.select('span')
             data = []

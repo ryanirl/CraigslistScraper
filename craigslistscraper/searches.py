@@ -20,14 +20,3 @@ class Searches:
         SEARCH = json_build.JsonProcessor(self.domains, self.cities, self.search, self.car_data)
     
         SEARCH.json_multiprocessor()
-
-
-
-
-
-
-
-
-
-
-

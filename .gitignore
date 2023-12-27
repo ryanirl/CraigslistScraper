@@ -1,7 +1,4 @@
-# For json files in data/ folder
-*.json
-!spec/*.json
-
+archive/
 
 
 # virtualenv/

@@ -2,33 +2,15 @@
 
 **Note:** CraigslistScraper is for personal use and data science only.
 
-CraigslistScraper is a web scraper for craigslist. Users define what they would
-like to search for then CraigslistScraper pulls ad data from their defined
-search and places it neatly inside of a JSON file. The file structure might
-look something like this: 
+**Updated (12/26/2023):** Craigslist made a few updates a couple of months ago that broke
+the previous version of this library, and I ended up doing a full refactor on this project. 
+That said, the new version 1.1.0 is not backwards compatible with version 1.0.1. 
 
-```
-data
-    ├── 14-aug-2020
-    │   ├── bmw_14:Aug:2020-11:04:01.json
-    │   ├── audi_14:Aug:2020-18:03:21.json
-    │   └── iphone_14:Aug:2020-11:04:07.json
-    ├── 15-aug-2020
-    └── 16-aug-2020
-        └── iphone_15:Aug:2020-12:06:02.json
-       
-```
+CraigslistScraper is a simple tool for scraping Craigslist. Users define what
+they would like to search for then CraigslistScraper can fetch and parse data
+from searches and individual ads. 
 
-##### Where each JSON file might contain data that looks like:
-
-<p>
-  <img src="img/json_file_example.png" alt="JSON Example" width="95%">
-</p>
-
-
-Only tested on macOS with python3.
-
-
+There are no official docs, but the code-base is sub 200 lines and is documented. 
 
 <!-- TABLE OF CONTENTS -->
 Table of Contents
@@ -40,70 +22,79 @@ Table of Contents
 * [License](#license)
 
 
-
 <!-- INSTALLATION -->
 ## Installation
-
-### MacOS:
 
 To install the package just run: 
 
 ```
 pip install craigslistscraper
-
 ``` 
 
-I always recommend the use of Python's virtual enviroments when installing
-libraries to avoid clutter. The dependencies CraigslistScraper requires to run
-properly are Beautifulsoup4, Requests, and Pandas. This may change as I
-continue to update this project.
-
-**Not tested on Windows or Linux**
-
+The only requirements are Python 3.7+ and the `requests` and `beautifulsoup4` libraries. 
 
 
 <!-- USAGE -->
 ## Usage
 
-Example:
+CraigslistScraper is built around 6 functions/classes for flexibility. These
+functions/classes are listed below. 
+
+For general searches: 
+ - Search
+ - SearchParser
+ - fetch_search
+
+For single ads/posts:
+ - Ad
+ - AdParser
+ - fetch_ad
+
+SearchParser and AdParser are BeautifulSoup-like abstractions that may be useful
+to developers for extracting certain fields from html data.
+
+Search and Ad are classes that lazily extract fields from user-defined searches and
+ads. To define a search you need at least a query and city, and to define an ad you
+need a url. Examples are provied below and in the `examples/` folder. 
+
+fetch_search() and fetch_ad() are functional implementations that return a Search and Ad.
+
+---
+
+Below is a simple example, more examples can be found in the `examples/` folder.
 
 ```python
-from craigslistscraper import Searches
+import craigslistscraper as cs
+import json
 
-if __name__ == '__main__': # Required to run inside of "if name == main"
+# Define the search. Everything is done lazily, and so the 
+# html is not fetched at this step.
+search = cs.Search(
+    query = "bmw e46",
+    city = "minneapolis",
+    category = "cto"
+)
 
-  filters = ['&postedToday=1'] # Optional | Define your filters here
+# This is the step that will fetch the html from the server.
+search.fetch()
 
-  cities = ['city1', 'city2'] # Required | Define the cities you want to search
+for ad in search.ads:
+    # We fetch additional information about each ad.
+    ad.fetch()
 
-  # car_data=False by default and doesn't need to be defined explicitly.
-  foo = Searches("your search", cities, "section", filters, car_data=False)
-  
-  foo.compile_search()
+    # There is a `to_dict()` method for convenience. 
+    data = ad.to_dict()
+
+    # json.dumps is merely for pretty printing. 
+    print(json.dumps(data, indent = 4))
 
 ```
-
-**Note #1:** Filters does not have to be defined or passed in as an argument, and will by default be assigned '&postedToday=1'
-
-
-**Note #2:** For a list of cities view the `craigslistscraper/city_data/craigslist_cities_list.csv` file
-
-
-**Note #3:** For more filters, check out the `FILTERS.md` file.
-
-For craigslistscraper to function properly you **NEED** to run it inside of `if
-__name__ == '__main__'` because of a multiprocessing error that occurs if you
-don't, this will be fixed in a future update.
-
-If your using this scraper to look at car data I recommend putting `car_data =
-True` at the end of foo in the example above, as it'll give more complete json
-data which is easier to work with when converting to csv files.
-
 
 
 ## Analyzing
 
-Data can easily be converted to **CSV**
+Data can easily be converted to your json, csv, etc. and used in various
+downstream data analysis tasks.
 
 <p>
   <img src="img/csv_screenshot.png" alt="CSV Example" width="95%">

@@ -10,11 +10,8 @@ cities = [
     "portland"
 ]
 
-# Time to delay before requests (in seconds)
-delay = 1.0
-
-# Max threads
-max_workers = 2
+delay = 1.0 # Time to delay between each request (in seconds)
+max_workers = 2 # Max threads
 
 # Define the list of searches (lazily!)
 searches = []
@@ -30,7 +27,11 @@ for city in cities:
 
 def worker_thread(search: cs.Search) -> None:
     """The function that will do work (including fetching) for each search."""
-    search.fetch() # Fetch the html data.
+    status = search.fetch() # Fetch the html data.
+    if status != 200:
+        print(f"Unable to fetch search at city {city} with status <{status}>.")
+        return
+
     print(f"Number of ads found at {search.city}: {len(search.ads)}")
 
 

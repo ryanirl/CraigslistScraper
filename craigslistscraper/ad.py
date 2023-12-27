@@ -42,20 +42,20 @@ class Ad:
 
         return f"< {self.title} (${self.price}): {self.url} >"
 
-    def fetch(self, **kwargs) -> "Ad":
+    def fetch(self, **kwargs) -> int:
         """Fetch additional data from the url of the ad."""
         self.request = requests.get(self.url, **kwargs)
-        parser = AdParser(self.request.content)
+        if self.request.status_code == 200:
+            parser = AdParser(self.request.content)
+            self.price = parser.price
+            self.title = parser.title
+            self.d_pid = parser.d_pid
+            self.description = parser.description
+            self.attributes = parser.attributes
+            self.image_urls = parser.image_urls
+            self.metadata = parser.metadata
 
-        self.price = parser.price
-        self.title = parser.title
-        self.d_pid = parser.d_pid
-        self.description = parser.description
-        self.attributes = parser.attributes
-        self.image_urls = parser.image_urls
-        self.metadata = parser.metadata
-
-        return self
+        return self.request.status_code
 
     def to_dict(self) -> Dict:
         return {
@@ -71,7 +71,9 @@ class Ad:
 
 def fetch_ad(url: str, **kwargs) -> Ad:
     """Functional way to fetch the ad information given a url."""
-    return Ad(url = url).fetch(**kwargs)
+    ad = Ad(url = url)
+    ad.fetch(**kwargs)
+    return ad
 
 
 class AdParser:

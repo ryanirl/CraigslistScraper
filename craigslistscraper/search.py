@@ -25,11 +25,13 @@ class Search:
         self.url = build_url(self.query, self.city, self.category)
         self.ads: List[Ad] = []
 
-    def fetch(self, **kwargs) -> "Search": 
+    def fetch(self, **kwargs) -> int: 
         self.request = requests.get(self.url, **kwargs)
-        parser = SearchParser(self.request.content)
-        self.ads = parser.ads
-        return self
+        if self.request.status_code == 200:
+            parser = SearchParser(self.request.content)
+            self.ads = parser.ads
+
+        return self.request.status_code
 
     def to_dict(self) -> Dict:
         return {
@@ -43,7 +45,9 @@ class Search:
 
 def fetch_search(query: str, city: str, category: str = "sss", **kwargs) -> Search:
     """Functional implementation of a Craigslist search."""
-    return Search(query = query, city = city, category = category).fetch(**kwargs)
+    search = Search(query = query, city = city, category = category)
+    search.fetch(**kwargs)
+    return search
 
 
 class SearchParser:

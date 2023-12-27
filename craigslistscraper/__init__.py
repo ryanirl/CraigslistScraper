@@ -6,6 +6,6 @@ from .search import Search
 from .search import SearchParser
 from .search import fetch_search 
 
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 

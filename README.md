@@ -2,10 +2,11 @@
 
 **Note:** CraigslistScraper is for personal use and data science only.
 
-**Updated (12/26/2023):** Craigslist made a few updates a couple of months ago that broke
-the previous version of this library. The recent are a full refactor on this project, that
-also fix the changes Craigslist made. That said, the new version 1.1.1 is not backwards 
-compatible with the previous version 1.0.1. 
+**Updated (12/26/2023):** Craigslist implemented some changes a couple of months
+ago that broke the previous version of this library. The recent updates to
+this library address these changes. That said, it also involved a complete
+refactor of the library, and the new version 1.1.1 is not backwards compatible
+with the previous version 1.0.1. 
 
 CraigslistScraper is a lightweight tool for scraping Craigslist. Users can define 
 what they would like to search for, then CraigslistScraper can fetch and parse data

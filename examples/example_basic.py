@@ -14,6 +14,7 @@ status = search.fetch()
 if status != 200:
     raise Exception(f"Unable to fetch search with status <{status}>.")
 
+print(f"{len(search.ads)} ads found!")
 for ad in search.ads:
     # Fetch additional information about each ad. Check the status again.
     status = ad.fetch()

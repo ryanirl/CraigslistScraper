@@ -9,20 +9,20 @@ search = cs.Search(
     category = "cto"
 )
 
-
 # Define the filters
 filters = {
-    "postedToday": 1,
+    "postedToday": 0,
     "bundleDuplicates": 1,
     "max_price": 5000
 }
 
 # Fetch the html from the server. Don't forget to check the status. Notice that
 # the filters are passed in through the requests.get(params = ...) argument.
-status = search.fetch()
+status = search.fetch(params = filters)
 if status != 200:
     raise Exception(f"Unable to fetch search with status <{status}>.")
 
+print(f"{len(search.ads)} ads found!")
 for ad in search.ads:
     # Fetch additional information about each ad. Check the status again.
     status = ad.fetch()
